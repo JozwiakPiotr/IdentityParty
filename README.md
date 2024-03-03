@@ -31,3 +31,5 @@ TODO:
 - [ ] learn OpenID Connect Core
 - [ ] learn OpenID Connect Discovery
 - [ ] learn OpenID Connect Dynamic Client Registration
+- [ ] support ASP.Net Core LTS Versions (8,6) 
+- [ ] design projects structure
