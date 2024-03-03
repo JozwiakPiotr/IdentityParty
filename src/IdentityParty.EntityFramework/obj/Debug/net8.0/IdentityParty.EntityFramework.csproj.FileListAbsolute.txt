@@ -1,0 +1,12 @@
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\bin\Debug\net8.0\IdentityParty.EntityFramework.deps.json
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\bin\Debug\net8.0\IdentityParty.EntityFramework.dll
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\bin\Debug\net8.0\IdentityParty.EntityFramework.pdb
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\obj\Debug\net8.0\IdentityParty.EntityFramework.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\obj\Debug\net8.0\IdentityParty.EntityFramework.AssemblyInfoInputs.cache
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\obj\Debug\net8.0\IdentityParty.EntityFramework.AssemblyInfo.cs
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\obj\Debug\net8.0\IdentityParty.EntityFramework.csproj.CoreCompileInputs.cache
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\obj\Debug\net8.0\IdentityParty.EntityFramework.sourcelink.json
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\obj\Debug\net8.0\IdentityParty.EntityFramework.dll
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\obj\Debug\net8.0\refint\IdentityParty.EntityFramework.dll
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\obj\Debug\net8.0\IdentityParty.EntityFramework.pdb
+D:\repos\IdentityParty\src\IdentityParty.EntityFramework\obj\Debug\net8.0\ref\IdentityParty.EntityFramework.dll

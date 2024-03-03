@@ -1,0 +1,12 @@
+D:\repos\IdentityParty\src\IdentityParty.Core\bin\Debug\net8.0\IdentityParty.Core.deps.json
+D:\repos\IdentityParty\src\IdentityParty.Core\bin\Debug\net8.0\IdentityParty.Core.dll
+D:\repos\IdentityParty\src\IdentityParty.Core\bin\Debug\net8.0\IdentityParty.Core.pdb
+D:\repos\IdentityParty\src\IdentityParty.Core\obj\Debug\net8.0\IdentityParty.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\IdentityParty\src\IdentityParty.Core\obj\Debug\net8.0\IdentityParty.Core.AssemblyInfoInputs.cache
+D:\repos\IdentityParty\src\IdentityParty.Core\obj\Debug\net8.0\IdentityParty.Core.AssemblyInfo.cs
+D:\repos\IdentityParty\src\IdentityParty.Core\obj\Debug\net8.0\IdentityParty.Core.csproj.CoreCompileInputs.cache
+D:\repos\IdentityParty\src\IdentityParty.Core\obj\Debug\net8.0\IdentityParty.Core.sourcelink.json
+D:\repos\IdentityParty\src\IdentityParty.Core\obj\Debug\net8.0\IdentityParty.Core.dll
+D:\repos\IdentityParty\src\IdentityParty.Core\obj\Debug\net8.0\refint\IdentityParty.Core.dll
+D:\repos\IdentityParty\src\IdentityParty.Core\obj\Debug\net8.0\IdentityParty.Core.pdb
+D:\repos\IdentityParty\src\IdentityParty.Core\obj\Debug\net8.0\ref\IdentityParty.Core.dll
