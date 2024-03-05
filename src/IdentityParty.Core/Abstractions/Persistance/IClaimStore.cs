@@ -1,6 +1,5 @@
 ﻿namespace IdentityParty.Core.Abstractions;
 
-internal interface IResponseTypeHandler
+public class IClaimStore
 {
-    
 }

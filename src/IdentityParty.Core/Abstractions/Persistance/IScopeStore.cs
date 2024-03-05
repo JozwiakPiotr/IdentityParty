@@ -1,6 +1,5 @@
 ﻿namespace IdentityParty.Core.Abstractions;
 
-internal interface IGrantTypeHandler
+public class IScopeStore
 {
-    
 }

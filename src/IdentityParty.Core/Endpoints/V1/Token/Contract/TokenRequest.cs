@@ -2,5 +2,4 @@
 
 internal record TokenRequest
 {
-    
 }

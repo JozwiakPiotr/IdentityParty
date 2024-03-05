@@ -10,4 +10,8 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IdentityParty.Core\IdentityParty.Core.csproj" />
+  </ItemGroup>
+
 </Project>

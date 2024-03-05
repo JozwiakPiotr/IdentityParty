@@ -33,3 +33,4 @@ TODO:
 - [ ] learn OpenID Connect Dynamic Client Registration
 - [ ] support ASP.Net Core LTS Versions (8,6) 
 - [ ] design projects structure
+- [ ] add .editorconfig file, docs:https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options

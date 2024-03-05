@@ -1,13 +1,45 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {},
-    "net8.0": {}
+    "net6.0": {
+      "IdentityParty.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/IdentityParty.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IdentityParty.Core.dll": {}
+        }
+      }
+    },
+    "net8.0": {
+      "IdentityParty.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/IdentityParty.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IdentityParty.Core.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "IdentityParty.Core/1.0.0": {
+      "type": "project",
+      "path": "../IdentityParty.Core/IdentityParty.Core.csproj",
+      "msbuildProject": "../IdentityParty.Core/IdentityParty.Core.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": [],
-    "net8.0": []
+    "net6.0": [
+      "IdentityParty.Core >= 1.0.0"
+    ],
+    "net8.0": [
+      "IdentityParty.Core >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Piotr\\.nuget\\packages\\": {},
@@ -43,11 +75,19 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\repos\\IdentityParty\\src\\IdentityParty.Core\\IdentityParty.Core.csproj": {
+              "projectPath": "D:\\repos\\IdentityParty\\src\\IdentityParty.Core\\IdentityParty.Core.csproj"
+            }
+          }
         },
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\repos\\IdentityParty\\src\\IdentityParty.Core\\IdentityParty.Core.csproj": {
+              "projectPath": "D:\\repos\\IdentityParty\\src\\IdentityParty.Core\\IdentityParty.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
