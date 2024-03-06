@@ -7,8 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Extensions\"/>
         <Folder Include="Token\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,12 @@
-﻿namespace IdentityParty.Core.Endpoints.V1.Token;
+﻿using IdentityParty.Core.Abstractions;
+using Microsoft.AspNetCore.Routing;
 
-internal sealed class TokenEndpoint
+namespace IdentityParty.Core.Endpoints.V1.Token;
+
+internal sealed class TokenEndpoint : IEndpoint
 {
+    public void Map(IRouteBuilder builder)
+    {
+        throw new NotImplementedException();
+    }
 }

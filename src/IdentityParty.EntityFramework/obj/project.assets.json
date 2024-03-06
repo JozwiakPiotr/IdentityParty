@@ -10,7 +10,10 @@
         },
         "runtime": {
           "bin/placeholder/IdentityParty.Core.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     },
     "net8.0": {
@@ -22,7 +25,10 @@
         },
         "runtime": {
           "bin/placeholder/IdentityParty.Core.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
