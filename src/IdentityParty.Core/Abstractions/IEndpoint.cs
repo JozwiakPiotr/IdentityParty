@@ -5,5 +5,5 @@ namespace IdentityParty.Core.Abstractions;
 
 internal interface IEndpoint
 {
-    void Map(IRouteBuilder builder);
+    void Map(IEndpointRouteBuilder builder);
 }
