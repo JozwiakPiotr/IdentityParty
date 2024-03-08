@@ -5,7 +5,7 @@ namespace IdentityParty.Core.Endpoints.V1.Token;
 
 internal sealed class TokenEndpoint : IEndpoint
 {
-    public void Map(IRouteBuilder builder)
+    public void Map(IEndpointRouteBuilder builder)
     {
         throw new NotImplementedException();
     }
