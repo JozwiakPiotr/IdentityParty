@@ -1,12 +1,11 @@
 ﻿using IdentityParty.Core.DTO;
-using IdentityParty.Core.Models;
 
 namespace IdentityParty.Core.Abstractions.Handlers;
 
 internal interface IResponseTypeHandler
 {
-    string ResponseType { get; }
+    string GrantType { get; }
     
-    Task<Either<SuccessfulTokenResponse, ErrorTokenResponse>>
-        HandleAsync(TokenRequest request);
+    Task<Either<SuccessfulAuthorizationResponse, ErrorAuthorizationResponse>>
+        HandleAsync(AuthorizationRequest request);
 }

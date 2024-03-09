@@ -1,10 +1,9 @@
 ﻿using IdentityParty.Core.Abstractions.Handlers;
 using IdentityParty.Core.DTO;
-using IdentityParty.Core.Models;
 
 namespace IdentityParty.Core.Flows.ClientCred;
 
-internal sealed class ClientCredentialsFlowHandler : IGrantTypeHandler
+internal sealed class ClientCredentialsFlowHandler : IResponseTypeHandler
 {
     public string GrantType { get; }
 

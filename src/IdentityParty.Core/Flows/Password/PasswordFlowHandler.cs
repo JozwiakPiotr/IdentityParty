@@ -1,10 +1,9 @@
 ﻿using IdentityParty.Core.Abstractions.Handlers;
 using IdentityParty.Core.DTO;
-using IdentityParty.Core.Models;
 
 namespace IdentityParty.Core.Flows.Password;
 
-internal class PasswordFlowHandler : IGrantTypeHandler
+internal class PasswordFlowHandler : IResponseTypeHandler
 {
     public string GrantType { get; }
 

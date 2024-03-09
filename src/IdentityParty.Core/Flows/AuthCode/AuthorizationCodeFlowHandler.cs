@@ -1,11 +1,10 @@
 ﻿using IdentityParty.Core.Abstractions.Handlers;
 using IdentityParty.Core.DTO;
-using IdentityParty.Core.Models;
 
 namespace IdentityParty.Core.Flows.AuthCode;
 
 internal sealed class AuthorizationCodeFlowHandler : 
-    IResponseTypeHandler, IGrantTypeHandler
+    IGrantTypeHandler, IResponseTypeHandler
 {
     public string GrantType { get; }
 

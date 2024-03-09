@@ -1,6 +1,5 @@
 ﻿using IdentityParty.Core.Abstractions.Validators;
 using IdentityParty.Core.DTO;
-using IdentityParty.Core.Models;
 
 namespace IdentityParty.Core.Flows.ClientCred;
 

@@ -1,3 +1,3 @@
-﻿namespace IdentityParty.Core.Models;
+﻿namespace IdentityParty.Core.DTO;
 
 internal record SuccessfulAuthorizationResponse;

@@ -4,7 +4,7 @@ using IdentityParty.Core.DTO;
 namespace IdentityParty.Core.Abstractions.Validators;
 
 internal interface IResponseTypeValidator<THandler>
-    where THandler : IResponseTypeHandler
+    where THandler : IGrantTypeHandler
 {
     ValueTask<ErrorAuthorizationResponse> Validate(AuthorizationRequest request);
 }

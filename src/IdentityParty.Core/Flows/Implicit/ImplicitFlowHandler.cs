@@ -1,10 +1,9 @@
 ﻿using IdentityParty.Core.Abstractions.Handlers;
 using IdentityParty.Core.DTO;
-using IdentityParty.Core.Models;
 
 namespace IdentityParty.Core.Flows.Implicit;
 
-internal sealed class ImplicitFlowHandler : IResponseTypeHandler
+internal sealed class ImplicitFlowHandler : IGrantTypeHandler
 {
     public string ResponseType { get; }
 

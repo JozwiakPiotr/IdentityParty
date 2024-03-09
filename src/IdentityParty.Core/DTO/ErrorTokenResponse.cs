@@ -1,4 +1,4 @@
-﻿namespace IdentityParty.Core.Models;
+﻿namespace IdentityParty.Core.DTO;
 
 internal class ErrorTokenResponse
 {

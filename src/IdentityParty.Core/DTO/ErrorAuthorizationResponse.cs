@@ -1,3 +1,5 @@
 ﻿namespace IdentityParty.Core.DTO;
 
-internal record ErrorAuthorizationResponse;
+internal record ErrorAuthorizationResponse
+(string Error,
+    string? State);
