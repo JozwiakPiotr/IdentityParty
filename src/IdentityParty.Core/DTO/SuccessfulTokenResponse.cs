@@ -1,5 +1,5 @@
 ﻿namespace IdentityParty.Core.DTO;
 
-public class SuccessfulTokenResponse
+internal class SuccessfulTokenResponse
 {
 }

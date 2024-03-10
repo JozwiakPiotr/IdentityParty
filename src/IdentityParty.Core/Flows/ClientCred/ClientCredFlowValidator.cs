@@ -3,7 +3,7 @@ using IdentityParty.Core.DTO;
 
 namespace IdentityParty.Core.Flows.ClientCred;
 
-internal sealed class ClientCredFlowValidator : 
+internal sealed class ClientCredFlowValidator :
     IGrantTypeValidator<ClientCredentialsFlowHandler>
 {
     public ValueTask<ErrorTokenResponse> Validate(TokenRequest request)

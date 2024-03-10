@@ -3,4 +3,4 @@
 internal record AuthorizationErrorResponse(
     string error,
     string? state
-    );
+);

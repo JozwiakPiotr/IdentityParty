@@ -13,11 +13,10 @@
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>IdentityParty.Unit</_Parameter1>
-            <_Paramter2>DynamicProxyGenAssembly2</_Paramter2>
         </AssemblyAttribute>
     </ItemGroup>
 
