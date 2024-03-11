@@ -6,6 +6,6 @@ internal interface IResponseTypeHandler
 {
     string GrantType { get; }
 
-    Task<Either<SuccessfulAuthorizationResponse, ErrorAuthorizationResponse>>
+    Task<AuthorizationResponse>
         HandleAsync(AuthorizationRequest request);
 }

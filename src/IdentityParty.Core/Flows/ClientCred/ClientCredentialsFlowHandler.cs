@@ -7,7 +7,7 @@ internal sealed class ClientCredentialsFlowHandler : IResponseTypeHandler
 {
     public string GrantType { get; }
 
-    public Task<Either<SuccessfulAuthorizationResponse, ErrorAuthorizationResponse>> HandleAsync(
+    public Task<AuthorizationResponse> HandleAsync(
         AuthorizationRequest request)
     {
         throw new NotImplementedException();

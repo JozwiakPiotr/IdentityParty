@@ -10,8 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 using AuthorizationRequest = IdentityParty.Core.Endpoints.V1.Authorization.Contract.AuthorizationRequest;
-using SuccessfulAuthorizationResponse =
-    IdentityParty.Core.Endpoints.V1.Authorization.Contract.SuccessfulAuthorizationResponse;
+using SuccessfulAuthorizationResponse = IdentityParty.Core.Endpoints.V1.Authorization.Contract.SuccessfulAuthorizationResponse;
 
 namespace IdentityParty.Core.Endpoints.V1.Authorization;
 
@@ -30,7 +29,8 @@ internal sealed class AuthorizationEndpoint : IEndpoint
     {
         var options = opt.Value;
 
-        if (!await clientManager.DoesClientExistAsync(Guid.Parse(request.ClientId))) return Results.Unauthorized();
+        if (!await clientManager.DoesClientExistAsync(Guid.Parse(request.ClientId)))
+            return Results.Unauthorized();
         if (!ctx.User.Identity?.IsAuthenticated ?? true)
             return Results.LocalRedirect(
                 options.LoginPageRelativeUrl +

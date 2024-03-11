@@ -13,7 +13,6 @@ using Microsoft.Extensions.Options;
 using Moq;
 using AuthorizationRequest = IdentityParty.Core.Endpoints.V1.Authorization.Contract.AuthorizationRequest;
 using Claim = System.Security.Claims.Claim;
-using SuccessfulAuthorizationResponse = IdentityParty.Core.Endpoints.V1.Authorization.Contract.SuccessfulAuthorizationResponse;
 
 namespace IdentityParty.Unit.Endpoints;
 
@@ -45,8 +44,8 @@ public class AuthorizationEndpointTests
     public async Task Handle_WhenUserIsAuthenticatedAndClientIsGranted_ShouldReturn200WithSuccessfulResponse()
     {
         //Arrange
-        Either<IdentityParty.Core.DTO.SuccessfulAuthorizationResponse, ErrorAuthorizationResponse> 
-            response = _fixture.Create<IdentityParty.Core.DTO.SuccessfulAuthorizationResponse>();
+        AuthorizationResponse response = _fixture
+            .Create<SuccessfulAuthorizationResponse>();
         const bool userAuthenticated = true;
         var clientId = Guid.NewGuid();
         var context = GetHttpContextMock(userAuthenticated);
@@ -56,7 +55,7 @@ public class AuthorizationEndpointTests
             .ReturnsAsync(true);
         _clientManagerMock.Setup(x => x.IsClientGrantedAsync(It.IsAny<Grant>()))
             .ReturnsAsync(true);
-        _handlerMock.Setup(x => x.HandleAsync(It.IsAny<IdentityParty.Core.DTO.AuthorizationRequest>()))
+        _handlerMock.Setup(x => x.HandleAsync(It.IsAny<Core.DTO.AuthorizationRequest>()))
             .ReturnsAsync(response);
 
         //Act
@@ -66,8 +65,8 @@ public class AuthorizationEndpointTests
             _handlerMock.Object);
 
         //Assert
-        Assert.IsType<Ok<SuccessfulAuthorizationResponse>>(result);
-        var okResult = (Ok<SuccessfulAuthorizationResponse>)result;
+        Assert.IsType<Ok<Core.Endpoints.V1.Authorization.Contract.SuccessfulAuthorizationResponse>>(result);
+        var okResult = (Ok<Core.Endpoints.V1.Authorization.Contract.SuccessfulAuthorizationResponse>)result;
         Assert.NotNull(okResult.Value);
     }
 

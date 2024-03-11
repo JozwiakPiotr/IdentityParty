@@ -1,6 +1,6 @@
 ﻿namespace IdentityParty.Core.DTO;
 
-internal readonly struct Either<TLeft, TRight>
+internal class Either<TLeft, TRight>
 {
     private readonly TLeft _left;
     private readonly TRight _right;
@@ -13,11 +13,11 @@ internal readonly struct Either<TLeft, TRight>
         _isLeft = isLeft;
     }
 
-    private Either(TLeft left) : this(left, default, true)
+    protected Either(TLeft left) : this(left, default, true)
     {
     }
 
-    private Either(TRight right) : this(default, right, false)
+    protected Either(TRight right) : this(default, right, false)
     {
     }
 

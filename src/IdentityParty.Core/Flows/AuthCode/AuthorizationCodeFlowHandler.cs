@@ -16,8 +16,7 @@ internal sealed class AuthorizationCodeFlowHandler :
 
     public string GrantType { get; }
 
-    public Task<Either<SuccessfulAuthorizationResponse, ErrorAuthorizationResponse>> HandleAsync(
-        AuthorizationRequest request)
+    public Task<AuthorizationResponse> HandleAsync(AuthorizationRequest request)
     {
         throw new NotImplementedException();
     }
