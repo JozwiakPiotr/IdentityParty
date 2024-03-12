@@ -12,9 +12,10 @@ public static class RouteBuilderExtensions
     {
         var sp = builder.ServiceProvider;
         var group = builder.MapGroup("/");
-
-        foreach (var endpoint in sp.GetServices<IEndpoint>()) endpoint.Map(group);
-
+        //TODO: map all generic endpoints
+        foreach (var endpoint in sp.GetServices(typeof(IEndpoint<>)))
+        {
+        }
         return group;
     }
 }

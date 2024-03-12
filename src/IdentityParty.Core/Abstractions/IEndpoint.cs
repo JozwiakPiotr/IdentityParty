@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace IdentityParty.Core.Abstractions;
 
-internal interface IEndpoint
+internal interface IEndpoint<in T>
 {
-    void Map(IEndpointRouteBuilder builder);
+    string HttpVerb { get; }
+    string Path { get; }
+    Task<IResult> HandleAsync(T Request);
 }

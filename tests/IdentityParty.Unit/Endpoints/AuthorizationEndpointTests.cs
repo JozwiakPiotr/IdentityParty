@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using AutoFixture;
 using AutoFixture.AutoMoq;
-using IdentityParty.Core;
 using IdentityParty.Core.Abstractions;
 using IdentityParty.Core.Abstractions.Handlers;
 using IdentityParty.Core.DTO;
@@ -9,7 +8,6 @@ using IdentityParty.Core.Endpoints.V1.Authorization;
 using IdentityParty.Core.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Extensions.Options;
 using Moq;
 using AuthorizationRequest = IdentityParty.Core.Endpoints.V1.Authorization.Contract.AuthorizationRequest;
 using Claim = System.Security.Claims.Claim;
@@ -18,16 +16,18 @@ namespace IdentityParty.Unit.Endpoints;
 
 public class AuthorizationEndpointTests
 {
-    private readonly Mock<IClientManager> _clientManagerMock = new();
+    private readonly Mock<IClientManager> _clientManagerMock;
     private readonly Fixture _fixture;
-    private readonly Mock<IResponseTypeHandler> _handlerMock = new();
-    private readonly Mock<IOptions<IdentityPartyOptions>> _optionsMock = new();
-    private readonly AuthorizationEndpoint _sut = new();
+    private readonly Mock<IResponseTypeHandler> _handlerMock;
+    private readonly Mock<IHttpContextAccessor> _httpContextAccessor; 
 
     public AuthorizationEndpointTests()
     {
         _fixture = new Fixture();
         _fixture.Customize(new AutoMoqCustomization());
+        _clientManagerMock = _fixture.Freeze<Mock<IClientManager>>();
+        _handlerMock = _fixture.Freeze<Mock<IResponseTypeHandler>>();
+        _httpContextAccessor = _fixture.Freeze<Mock<IHttpContextAccessor>>();
     }
 
     [Fact]
@@ -48,7 +48,8 @@ public class AuthorizationEndpointTests
             .Create<SuccessfulAuthorizationResponse>();
         const bool userAuthenticated = true;
         var clientId = Guid.NewGuid();
-        var context = GetHttpContextMock(userAuthenticated);
+        _httpContextAccessor.SetupGet(x => x.HttpContext)
+            .Returns(GetHttpContextMock(userAuthenticated));
         var request = _fixture.Build<AuthorizationRequest>()
             .With(x => x.ClientId, clientId.ToString).Create();
         _clientManagerMock.Setup(x => x.DoesClientExistAsync(clientId))
@@ -57,12 +58,10 @@ public class AuthorizationEndpointTests
             .ReturnsAsync(true);
         _handlerMock.Setup(x => x.HandleAsync(It.IsAny<Core.DTO.AuthorizationRequest>()))
             .ReturnsAsync(response);
+        var sut = _fixture.Create<AuthorizationEndpoint>();
 
         //Act
-        var result = await _sut.HandleAsync(context, request,
-            _optionsMock.Object,
-            _clientManagerMock.Object,
-            _handlerMock.Object);
+        var result = await sut.HandleAsync(request);
 
         //Assert
         Assert.IsType<Ok<Core.Endpoints.V1.Authorization.Contract.SuccessfulAuthorizationResponse>>(result);
