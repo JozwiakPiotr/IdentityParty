@@ -5,14 +5,16 @@ using IdentityParty.Core.Abstractions.Handlers;
 using IdentityParty.Core.DTO;
 using IdentityParty.Core.Endpoints.V1.Authorization.Contract;
 using IdentityParty.Core.Entities;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 using AuthorizationRequest = IdentityParty.Core.Endpoints.V1.Authorization.Contract.AuthorizationRequest;
 using SuccessfulAuthorizationResponse = IdentityParty.Core.Endpoints.V1.Authorization.Contract.SuccessfulAuthorizationResponse;
 
 namespace IdentityParty.Core.Endpoints.V1.Authorization;
 
-internal sealed class AuthorizationEndpoint : IEndpoint<AuthorizationRequest>
+internal sealed class AuthorizationEndpoint : IEndpoint
 {
     private readonly HttpContext _httpContext;
     private readonly IdentityPartyOptions _options;
@@ -32,8 +34,12 @@ internal sealed class AuthorizationEndpoint : IEndpoint<AuthorizationRequest>
         _responseTypeHandler = responseTypeHandler;
     }
 
-    public string HttpVerb { get; } = HttpMethods.Get;
-    public string Path { get; } = "authorization";
+    public void Map(IEndpointRouteBuilder builder)
+    {
+        builder.MapGet("authorization",
+        async (AuthorizationRequest req, AuthorizationEndpoint end) =>
+            await end.HandleAsync(req));
+    }
 
     public async Task<IResult> HandleAsync(AuthorizationRequest request)
     {

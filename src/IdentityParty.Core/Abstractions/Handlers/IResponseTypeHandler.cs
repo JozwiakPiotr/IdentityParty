@@ -4,7 +4,7 @@ namespace IdentityParty.Core.Abstractions.Handlers;
 
 internal interface IResponseTypeHandler
 {
-    string GrantType { get; }
+    string ResponseType { get; }
 
     Task<AuthorizationResponse>
         HandleAsync(AuthorizationRequest request);

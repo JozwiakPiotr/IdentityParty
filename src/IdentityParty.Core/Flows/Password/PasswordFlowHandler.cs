@@ -5,10 +5,9 @@ namespace IdentityParty.Core.Flows.Password;
 
 internal class PasswordFlowHandler : IResponseTypeHandler
 {
-    public string GrantType { get; }
+    public string ResponseType => throw new NotImplementedException();
 
-    public Task<AuthorizationResponse> HandleAsync(
-        AuthorizationRequest request)
+    public Task<AuthorizationResponse> HandleAsync(AuthorizationRequest request)
     {
         throw new NotImplementedException();
     }

@@ -6,6 +6,10 @@ namespace IdentityParty.Core.Flows.AuthCode;
 internal sealed class AuthorizationCodeFlowHandler :
     IGrantTypeHandler, IResponseTypeHandler
 {
+    public Task<AuthorizationResponse> HandleAsync(AuthorizationRequest request)
+    {
+        throw new NotImplementedException();
+    }
     public string ResponseType { get; }
 
     public Task<Either<SuccessfulTokenResponse, ErrorTokenResponse>> HandleAsync(
@@ -15,9 +19,4 @@ internal sealed class AuthorizationCodeFlowHandler :
     }
 
     public string GrantType { get; }
-
-    public Task<AuthorizationResponse> HandleAsync(AuthorizationRequest request)
-    {
-        throw new NotImplementedException();
-    }
 }

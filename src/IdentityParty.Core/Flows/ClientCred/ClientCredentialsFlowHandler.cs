@@ -3,12 +3,11 @@ using IdentityParty.Core.DTO;
 
 namespace IdentityParty.Core.Flows.ClientCred;
 
-internal sealed class ClientCredentialsFlowHandler : IResponseTypeHandler
+internal sealed class ClientCredentialsFlowHandler : IGrantTypeHandler
 {
-    public string GrantType { get; }
+    public string GrantType => throw new NotImplementedException();
 
-    public Task<AuthorizationResponse> HandleAsync(
-        AuthorizationRequest request)
+    public Task<Either<SuccessfulTokenResponse, ErrorTokenResponse>> HandleAsync(TokenRequest request)
     {
         throw new NotImplementedException();
     }

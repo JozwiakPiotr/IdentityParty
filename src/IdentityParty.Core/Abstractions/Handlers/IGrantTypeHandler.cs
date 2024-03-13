@@ -4,7 +4,7 @@ namespace IdentityParty.Core.Abstractions.Handlers;
 
 internal interface IGrantTypeHandler
 {
-    string ResponseType { get; }
+    string GrantType { get; }
 
     Task<Either<SuccessfulTokenResponse, ErrorTokenResponse>>
         HandleAsync(TokenRequest request);
