@@ -7,7 +7,7 @@ internal sealed class ClientCredentialsFlowHandler : IGrantTypeHandler
 {
     public string GrantType => throw new NotImplementedException();
 
-    public Task<Either<SuccessfulTokenResponse, ErrorTokenResponse>> HandleAsync(TokenRequest request)
+    public Task<TokenResponse> HandleAsync(TokenRequest request)
     {
         throw new NotImplementedException();
     }

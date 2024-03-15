@@ -1,16 +1,20 @@
 ﻿namespace IdentityParty.Core.DTO;
 
-internal sealed class AuthorizationResponse
-    : Either<SuccessfulAuthorizationResponse, ErrorAuthorizationResponse>
+internal readonly struct AuthorizationResponse
 {
-    private AuthorizationResponse(SuccessfulAuthorizationResponse left)
-        : base(left)
+    public readonly SuccessfulAuthorizationResponse? Success;
+    public readonly ErrorAuthorizationResponse? Error;
+
+    public AuthorizationResponse(SuccessfulAuthorizationResponse success)
     {
+        Success = success;
+        Error = null;
     }
 
-    private AuthorizationResponse(ErrorAuthorizationResponse right)
-        : base(right)
+    public AuthorizationResponse(ErrorAuthorizationResponse error)
     {
+        Error = error;
+        Success = null;
     }
 
     public static implicit operator AuthorizationResponse(SuccessfulAuthorizationResponse success)

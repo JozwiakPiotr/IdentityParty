@@ -6,6 +6,5 @@ internal interface IGrantTypeHandler
 {
     string GrantType { get; }
 
-    Task<Either<SuccessfulTokenResponse, ErrorTokenResponse>>
-        HandleAsync(TokenRequest request);
+    Task<TokenResponse> HandleAsync(TokenRequest request);
 }

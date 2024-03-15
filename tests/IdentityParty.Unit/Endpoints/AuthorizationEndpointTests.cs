@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Moq;
 using AuthorizationRequest = IdentityParty.Core.Endpoints.V1.Authorization.Contract.AuthorizationRequest;
 using Claim = System.Security.Claims.Claim;
+using SuccessfulAuthorizationResponseContract =
+    IdentityParty.Core.Endpoints.V1.Authorization.Contract.SuccessfulAuthorizationResponse;
 
 namespace IdentityParty.Unit.Endpoints;
 
@@ -19,7 +21,7 @@ public class AuthorizationEndpointTests
     private readonly Mock<IClientManager> _clientManagerMock;
     private readonly Fixture _fixture;
     private readonly Mock<IResponseTypeHandler> _handlerMock;
-    private readonly Mock<IHttpContextAccessor> _httpContextAccessor; 
+    private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
 
     public AuthorizationEndpointTests()
     {
@@ -40,6 +42,7 @@ public class AuthorizationEndpointTests
     {
     }
 
+    //TODO: should redirect to provided url
     [Fact]
     public async Task Handle_WhenUserIsAuthenticatedAndClientIsGranted_ShouldReturn200WithSuccessfulResponse()
     {
@@ -64,8 +67,8 @@ public class AuthorizationEndpointTests
         var result = await sut.HandleAsync(request);
 
         //Assert
-        Assert.IsType<Ok<Core.Endpoints.V1.Authorization.Contract.SuccessfulAuthorizationResponse>>(result);
-        var okResult = (Ok<Core.Endpoints.V1.Authorization.Contract.SuccessfulAuthorizationResponse>)result;
+        Assert.IsType<Ok<SuccessfulAuthorizationResponseContract>>(result);
+        var okResult = (Ok<SuccessfulAuthorizationResponseContract>)result;
         Assert.NotNull(okResult.Value);
     }
 

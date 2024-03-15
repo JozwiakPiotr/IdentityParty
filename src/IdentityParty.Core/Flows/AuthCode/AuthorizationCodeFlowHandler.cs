@@ -12,7 +12,7 @@ internal sealed class AuthorizationCodeFlowHandler :
     }
     public string ResponseType { get; }
 
-    public Task<Either<SuccessfulTokenResponse, ErrorTokenResponse>> HandleAsync(
+    public Task<TokenResponse> HandleAsync(
         TokenRequest request)
     {
         throw new NotImplementedException();

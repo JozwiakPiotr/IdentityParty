@@ -3,11 +3,11 @@ using IdentityParty.Core.DTO;
 
 namespace IdentityParty.Core.Flows.Password;
 
-internal class PasswordFlowHandler : IResponseTypeHandler
+internal class PasswordFlowHandler : IGrantTypeHandler
 {
-    public string ResponseType => throw new NotImplementedException();
+    public string GrantType { get; }
 
-    public Task<AuthorizationResponse> HandleAsync(AuthorizationRequest request)
+    public Task<TokenResponse> HandleAsync(TokenRequest request)
     {
         throw new NotImplementedException();
     }

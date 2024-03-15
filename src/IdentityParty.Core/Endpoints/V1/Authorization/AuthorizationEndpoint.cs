@@ -37,8 +37,8 @@ internal sealed class AuthorizationEndpoint : IEndpoint
     public void Map(IEndpointRouteBuilder builder)
     {
         builder.MapGet("authorization",
-        async (AuthorizationRequest req, AuthorizationEndpoint end) =>
-            await end.HandleAsync(req));
+            async (AuthorizationRequest req, AuthorizationEndpoint end) =>
+                await end.HandleAsync(req));
     }
 
     public async Task<IResult> HandleAsync(AuthorizationRequest request)
@@ -53,15 +53,16 @@ internal sealed class AuthorizationEndpoint : IEndpoint
             RedirectToConsentPageResult(request);
 
         var result = await _responseTypeHandler.HandleAsync(ToCoreRequest(request));
-        return result.Match(
-            success => Results.Ok(ToSuccess(success)),
-            error => Results.BadRequest(ToError(error)));
+
+        return result.Success is not null
+            ? Results.Ok(ToSuccess(result.Success))
+            : Results.BadRequest(ToError(result.Error!));
     }
 
-    private Task<bool> ClientDoesntExist(string clientId)
+    private async Task<bool> ClientDoesntExist(string clientId)
     {
         _ = Guid.TryParse(clientId, out var parsed);
-        return _clientManager.DoesClientExistAsync(parsed);
+        return !await _clientManager.DoesClientExistAsync(parsed);
     }
 
     private bool UserIsNotAuthenticated()
@@ -140,5 +141,4 @@ internal sealed class AuthorizationEndpoint : IEndpoint
     }
 
     #endregion
-    
 }
