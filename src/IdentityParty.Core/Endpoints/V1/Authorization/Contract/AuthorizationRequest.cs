@@ -9,7 +9,9 @@ internal record AuthorizationRequest(
     [property: JsonPropertyName("client_id")]
     string ClientId,
     [property: JsonPropertyName("redirect_uri")]
-    string RedirectUri);
+    string RedirectUri,
+    [property: JsonPropertyName("state")]
+    string state);
 /*
  * TODO: add optional parameteres
  * state

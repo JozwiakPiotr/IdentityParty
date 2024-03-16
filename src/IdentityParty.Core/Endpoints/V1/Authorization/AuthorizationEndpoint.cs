@@ -124,7 +124,8 @@ internal sealed class AuthorizationEndpoint : IEndpoint
             request.Scope.Split(' ').Select(x => new Scope(x)).ToList(),
             request.ResponseType,
             Guid.Parse(request.ClientId),
-            request.RedirectUri
+            request.RedirectUri,
+            request.state
         );
     }
 

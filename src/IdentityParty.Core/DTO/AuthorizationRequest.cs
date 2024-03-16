@@ -7,7 +7,8 @@ internal record AuthorizationRequest
     List<Scope> Scope,
     string ResponseType,
     Guid ClientId,
-    string RedirectUrl
+    string RedirectUrl,
+    string State
 )
 {
     // public string? State { get; set; }
