@@ -1,5 +1,4 @@
 ﻿using AutoFixture;
-using AutoFixture.Xunit;
 using IdentityParty.Core.DTO;
 using IdentityParty.Core.Flows.AuthCode;
 
