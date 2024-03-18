@@ -1,5 +1,5 @@
 ﻿namespace IdentityParty.Core.Abstractions;
 
-public class IClaimStore
+public interface IClaimStore
 {
 }

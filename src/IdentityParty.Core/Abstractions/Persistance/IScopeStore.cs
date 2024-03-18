@@ -1,5 +1,8 @@
-﻿namespace IdentityParty.Core.Abstractions;
+﻿using IdentityParty.Core.Entities;
 
-public class IScopeStore
+namespace IdentityParty.Core.Abstractions;
+
+public interface IScopeStore
 {
+    Task<Scope> GetAllByGrantId(Guid grantId);
 }
