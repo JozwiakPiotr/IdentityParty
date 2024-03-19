@@ -41,6 +41,17 @@ internal sealed class AuthorizationEndpoint : IEndpoint
                 await end.HandleAsync(req));
     }
 
+    //TODO: validate returnUrl
+    /*
+    request |> validate |> match result with
+        err -> match err.code with 
+            invalid_request -> 302(redirect_uri)
+            invalid_redirect_uri -> 302(error_page)
+            ...
+        success ->
+            result |> ToCore |> handler.Handle |> match result with
+            ... 
+    */
     public async Task<IResult> HandleAsync(AuthorizationRequest request)
     {
         if (await ClientDoesntExist(request.ClientId))
@@ -118,14 +129,16 @@ internal sealed class AuthorizationEndpoint : IEndpoint
         return Guid.Parse(ctx.User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
     }
 
-    private static DTO.AuthorizationRequest ToCoreRequest(AuthorizationRequest request)
+    private DTO.AuthorizationRequest ToCoreRequest(AuthorizationRequest request)
     {
         return new DTO.AuthorizationRequest(
-            request.Scope.Split(' ').Select(x => new Scope(x)).ToList(),
             request.ResponseType,
-            Guid.Parse(request.ClientId),
             request.RedirectUri,
-            request.state
+            request.state,
+            new Grant(
+                Guid.Parse(request.ClientId),
+                GetUserId(_httpContext),
+                request.Scope.Split(' ').Select(x => new Scope(x)).ToList())
         );
     }
 

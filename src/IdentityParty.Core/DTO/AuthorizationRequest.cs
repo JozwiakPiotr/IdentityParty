@@ -4,14 +4,12 @@ namespace IdentityParty.Core.DTO;
 
 internal record AuthorizationRequest
 (
-    List<Scope> Scope,
     string ResponseType,
-    Guid ClientId,
     string RedirectUrl,
-    string State
+    string? State,
+    Grant Grant
 )
 {
-    // public string? State { get; set; }
     // public string? ResponseMode { get; set; }
     // public string? Nonce { get; set; }
     // public string? Display { get; set; }

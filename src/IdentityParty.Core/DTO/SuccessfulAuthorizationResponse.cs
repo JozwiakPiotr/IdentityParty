@@ -4,5 +4,5 @@ internal record SuccessfulAuthorizationResponse
 (
     string ReturnUrl,
     string Code,
-    string State
+    string? State
 );

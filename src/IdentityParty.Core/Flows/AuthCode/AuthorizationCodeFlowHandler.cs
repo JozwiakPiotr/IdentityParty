@@ -12,9 +12,13 @@ internal sealed class AuthorizationCodeFlowHandler :
     {
         _clientManager = clientManager;
     }
-    public Task<AuthorizationResponse> HandleAsync(AuthorizationRequest request)
+    public async Task<AuthorizationResponse> HandleAsync(AuthorizationRequest request)
     {
-        throw new NotImplementedException();
+        var code = await _clientManager.GetAuthCodeAsync(request.Grant);
+        return new SuccessfulAuthorizationResponse(
+            request.RedirectUrl,
+            code,
+            request.State);
     }
     public string ResponseType { get; } = "code";
 
@@ -24,5 +28,5 @@ internal sealed class AuthorizationCodeFlowHandler :
         throw new NotImplementedException();
     }
 
-    public string GrantType { get; }
+    public string GrantType { get; } = "authorization_code";
 }

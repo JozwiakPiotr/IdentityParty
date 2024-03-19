@@ -23,8 +23,8 @@ public class AuthorizationCodeFlowHandlerTests
     public async Task HandleAsyncAuthorizationRequest_ShouldReturnSuccessfulResponse()
     {
         var request = _fixture.Create<AuthorizationRequest>();
-        _clientManager.Setup(x => x.GetAuthCodeAsync(request.ClientId))
-            .ReturnsAsync(It.IsAny<string>());
+        _clientManager.Setup(x => x.GetAuthCodeAsync(request.Grant))
+            .ReturnsAsync(_fixture.Create<string>());
         _sut = _fixture.Create<AuthorizationCodeFlowHandler>();
 
         var actual = await _sut.HandleAsync(request);
