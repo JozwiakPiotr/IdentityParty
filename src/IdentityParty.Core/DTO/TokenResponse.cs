@@ -26,4 +26,7 @@ internal readonly struct TokenResponse
     {
         return new TokenResponse(error);
     }
+
+    public void Deconstruct(out SuccessfulTokenResponse? success, out ErrorTokenResponse? err)
+        => (success, err) = (Success, Error);
 }
