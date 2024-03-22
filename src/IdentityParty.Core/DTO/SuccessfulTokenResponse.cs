@@ -1,5 +1,8 @@
 ﻿namespace IdentityParty.Core.DTO;
 
-internal class SuccessfulTokenResponse
-{
-}
+internal record SuccessfulTokenResponse
+(string AccessToken,
+    string TokenType,
+    int ExpiresIn,
+    string? RefreshToken,
+    string? Scope);

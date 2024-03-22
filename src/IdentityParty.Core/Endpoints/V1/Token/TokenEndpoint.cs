@@ -10,42 +10,48 @@ namespace IdentityParty.Core.Endpoints.V1.Token;
 internal sealed class TokenEndpoint : IEndpoint
 {
     private IEnumerable<IGrantTypeHandler> _handlers;
+
     public TokenEndpoint(IEnumerable<IGrantTypeHandler> handlers)
     {
         _handlers = handlers;
     }
+
     public void Map(IEndpointRouteBuilder builder)
     {
-        builder.MapPost("token", 
-            (TokenRequest request, TokenEndpoint endpoint) => 
+        builder.MapPost("token",
+            (TokenRequest request, TokenEndpoint endpoint) =>
                 endpoint.HandleAsync(request));
     }
 
     public async Task<IResult> HandleAsync(TokenRequest request)
     {
-        var h = _handlers.FirstOrDefault(x => x.GrantType == request.grant_type);
-        if(h is null)
-            return UnsuportedGrantTypeResponse();
-        var coreRequest = ToCoreRequest(request);
-        var result = await h.HandleAsync(coreRequest);
-        return MatchResult(result);
+        var handler = _handlers.FirstOrDefault(x => x.GrantType == request.grant_type);
+        if (handler is null)
+            return UnsupportedGrantTypeResponse();
+        var coreRequest = request.ToCoreRequest();
+        var result = await handler.HandleAsync(coreRequest);
+        if (result.Success is null)
+            return MatchError(result.Error!);
+        return Results.Ok(result.Success.ToSuccessfulResponse());
     }
-        
 
-    private IResult UnsuportedGrantTypeResponse()
+    private IResult UnsupportedGrantTypeResponse()
     {
-        throw new NotImplementedException();
+        var error = new ErrorTokenResponse("unsupported_grant_type", null, null);
+        return Results.BadRequest(error);
     }
 
-    private IResult MatchResult(DTO.TokenResponse response) =>
-        response switch
+    private IResult MatchError(DTO.ErrorTokenResponse error)
+    {
+        return error.Error switch
         {
-            (null, var err) => throw new NotImplementedException(),
-            (var success, null) => throw new NotImplementedException()
+            "invalid_request" or
+                "unauthorized_client" or
+                "invalid_grant" or
+                "invalid_scope" => Results.BadRequest(error.ToErrorResponse()),
+            //TODO: implement invalid_client response
+            "invalid_client" => throw new NotImplementedException(),
+            _ => throw new ArgumentOutOfRangeException()
         };
-
-    private DTO.TokenRequest ToCoreRequest(TokenRequest request)
-    {
-        throw new NotImplementedException();
     }
 }

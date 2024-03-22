@@ -1,5 +1,3 @@
 ﻿namespace IdentityParty.Core.DTO;
 
-internal class ErrorTokenResponse
-{
-}
+internal record ErrorTokenResponse(string Error, string? ErrorDescription, string? ErrorUri);
