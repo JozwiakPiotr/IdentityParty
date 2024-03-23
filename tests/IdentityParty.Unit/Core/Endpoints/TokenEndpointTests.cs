@@ -2,6 +2,7 @@
 using IdentityParty.Core.Abstractions.Handlers;
 using IdentityParty.Core.DTO;
 using IdentityParty.Core.Endpoints.V1.Token;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Moq;
 using SuccessfulTokenResponse = IdentityParty.Core.DTO.SuccessfulTokenResponse;
@@ -12,7 +13,6 @@ namespace IdentityParty.Unit;
 public class TokenEndpointTests
 {
     private Fixture _fixture;
-    private TokenEndpoint _sut;
     private readonly Mock<IGrantTypeHandler> _grantTypeHandlerMock = new();
 
     public TokenEndpointTests()
@@ -33,9 +33,9 @@ public class TokenEndpointTests
             It.IsAny<Core.DTO.TokenRequest>())
         ).ReturnsAsync(tokenResponseDto);
         //TODO: use AutoFixture to create sut object
-        _sut = new TokenEndpoint(new List<IGrantTypeHandler> { _grantTypeHandlerMock.Object });
+        var sut = new TokenEndpoint(new List<IGrantTypeHandler> { _grantTypeHandlerMock.Object });
 
-        var actual = await _sut.HandleAsync(request);
+        var actual = await sut.HandleAsync(request);
 
         Assert.IsType<Ok<Core.Endpoints.V1.Token.Contract.SuccessfulTokenResponse>>(actual);
         var successfulResponse = (Ok<Core.Endpoints.V1.Token.Contract.SuccessfulTokenResponse>)actual;
@@ -59,9 +59,9 @@ public class TokenEndpointTests
             It.IsAny<Core.DTO.TokenRequest>())
         ).ReturnsAsync(tokenResponseDto);
         //TODO: use AutoFixture to create sut object
-        _sut = new TokenEndpoint(new List<IGrantTypeHandler> { _grantTypeHandlerMock.Object });
+        var sut = new TokenEndpoint(new List<IGrantTypeHandler> { _grantTypeHandlerMock.Object });
 
-        var actual = await _sut.HandleAsync(request);
+        var actual = await sut.HandleAsync(request);
 
         Assert.IsType<BadRequest<Core.ErrorTokenResponse>>(actual);
         var errorResponse = (BadRequest<Core.ErrorTokenResponse>)actual;
@@ -73,26 +73,35 @@ public class TokenEndpointTests
     {
         const string expectedErrorCode = "unsupported_grant_type";
         var request = _fixture.Create<TokenRequest>();
-        _sut = new TokenEndpoint(Enumerable.Empty<IGrantTypeHandler>());
+        //TODO: use AutoFixture to create sut object
+        var sut = new TokenEndpoint(Enumerable.Empty<IGrantTypeHandler>());
 
-        var actual = await _sut.HandleAsync(request);
+        var actual = await sut.HandleAsync(request);
 
         Assert.IsType<BadRequest<Core.ErrorTokenResponse>>(actual);
         var errorResponse = (BadRequest<Core.ErrorTokenResponse>)actual;
         Assert.Equal(expectedErrorCode, errorResponse.Value?.error);
     }
     
+    [Fact]
     public async Task HandleAsync_WhenClientIsNotAuthenticated_ShouldReturn401()
     {
         var request = _fixture.Create<TokenRequest>();
-        _sut = _fixture.Create<TokenEndpoint>();
+        var grantTypeHandlerMock = new Mock<IGrantTypeHandler>();
+        grantTypeHandlerMock.SetupGet(x => x.GrantType).Returns(request.grant_type);
+        Core.DTO.TokenResponse errorResponse = _fixture.Build<Core.DTO.ErrorTokenResponse>()
+            .With(x => x.Error, "invalid_client")
+            .Create();
+        grantTypeHandlerMock.Setup(x => x.HandleAsync(It.IsAny<Core.DTO.TokenRequest>()))
+            .ReturnsAsync(errorResponse);
+        //TODO: use AutoFixture to create sut object
+        var sut = new TokenEndpoint(new List<IGrantTypeHandler>{
+            grantTypeHandlerMock.Object
+        });
 
-        var actual = await _sut.HandleAsync(request);
+        var actual = await sut.HandleAsync(request);
 
-        Assert.IsType<Ok<Core.ErrorTokenResponse>>(actual);
-        var successfulResponse = (Ok<Core.ErrorTokenResponse>)actual;
-        Assert.NotNull(successfulResponse.Value);
-        Assert.NotNull(successfulResponse.Value.error);
+        Assert.IsType<UnauthorizedHttpResult>(actual);
     }
 
     public static IEnumerable<object[]> ErrorCodesWith400()

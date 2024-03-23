@@ -25,7 +25,7 @@ internal sealed class TokenEndpoint : IEndpoint
 
     public async Task<IResult> HandleAsync(TokenRequest request)
     {
-        var handler = _handlers.FirstOrDefault(x => x.GrantType == request.grant_type);
+        var handler = _handlers.FirstOrDefault(x => x.GrantType == request.grant_type); 
         if (handler is null)
             return UnsupportedGrantTypeResponse();
         var coreRequest = request.ToCoreRequest();
@@ -37,6 +37,7 @@ internal sealed class TokenEndpoint : IEndpoint
 
     private IResult UnsupportedGrantTypeResponse()
     {
+        //TODO: add description and error page uri
         var error = new ErrorTokenResponse("unsupported_grant_type", null, null);
         return Results.BadRequest(error);
     }
@@ -49,8 +50,9 @@ internal sealed class TokenEndpoint : IEndpoint
                 "unauthorized_client" or
                 "invalid_grant" or
                 "invalid_scope" => Results.BadRequest(error.ToErrorResponse()),
-            //TODO: implement invalid_client response
-            "invalid_client" => throw new NotImplementedException(),
+            //TODO: Add body
+            //TODO: Decide where the authentication and authorization should be
+            "invalid_client" => TypedResults.Unauthorized(),
             _ => throw new ArgumentOutOfRangeException()
         };
     }
