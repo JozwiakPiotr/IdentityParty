@@ -10,13 +10,7 @@ namespace IdentityParty.Unit;
 public class AuthorizationFlowResolverTests
 {
     private AuthorizationFlowResolver _sut;
-    private readonly Fixture _fixture;
-
-    public AuthorizationFlowResolverTests()
-    {
-        _fixture = new Fixture();
-        _fixture.Customize(new AutoMoqCustomization());
-    }
+    private readonly Fixture _fixture = FixtureFactory.Create();
 
     [Fact]
     public async Task HandleAsync_WhenResponseTypeIsNotSupported_ShouldReturnErrorResponse()

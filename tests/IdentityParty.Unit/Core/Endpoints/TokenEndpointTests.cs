@@ -17,7 +17,7 @@ public class TokenEndpointTests
 
     public TokenEndpointTests()
     {
-        _fixture = FixtureFactory.GetFixture();
+        _fixture = FixtureFactory.Create();
     }
 
     [Fact]

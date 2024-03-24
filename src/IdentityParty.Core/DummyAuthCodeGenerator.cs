@@ -4,9 +4,10 @@ namespace IdentityParty.Core;
 
 public class DummyAuthCodeGenerator : IAuthorizationCodeIssuer
 {
-    public string Generate(Client client)
+    public string Generate(Grant grant)
     {
-        
-        return Random.Shared.NextBytes()
+        var bytes = new Byte[64];
+        Random.Shared.NextBytes(bytes);
+        return Convert.ToBase64String(bytes);
     }
 }

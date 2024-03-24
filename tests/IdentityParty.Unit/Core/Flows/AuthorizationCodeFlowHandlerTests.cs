@@ -15,7 +15,7 @@ public class AuthorizationCodeFlowHandlerTests
 
     public AuthorizationCodeFlowHandlerTests()
     {
-        _fixture = FixtureFactory.GetFixture();
+        _fixture = FixtureFactory.Create();
         _clientManager = _fixture.Freeze<Mock<IClientManager>>();
     }
 

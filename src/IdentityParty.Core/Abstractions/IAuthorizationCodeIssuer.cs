@@ -4,5 +4,5 @@ namespace IdentityParty.Core;
 
 public interface IAuthorizationCodeIssuer
 {
-    string Generate(Client client);
+    string Generate(Grant grant);
 }
