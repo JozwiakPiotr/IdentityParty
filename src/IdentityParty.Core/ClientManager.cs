@@ -9,9 +9,10 @@ internal class ClientManager : IClientManager
         IGrantStore grantStore,
         IClientStore clientStore,
         IAccessTokenManager accessTokenManager,
-        IAuthorizationCodeIssuer authCodeIssuer)
+        IAuthorizationCodeIssuer authCodeIssuer,
+        IIdTokenManager idTokenManager)
     {
-
+        
     }
 
     public Task<bool> DoesClientExistAsync(Guid clientId)

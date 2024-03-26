@@ -88,6 +88,11 @@ public class ClientManagerTests
         Assert.Equal(expected, actual);
     }
 
+    public async Task ValidateCodeAsync_WhenSuccessful_ShouldSetAuthCodeAsUsed()
+    {
+        var grantStoreMock = _fixture.Freeze<Mock<IGrantStore>>();
+    }
+
     [Fact]
     public async Task ValidateCodeAsync_WhenCodeWasAlreadyUsed_ShouldReturnFalseAndRevokeAllTokens()
     {

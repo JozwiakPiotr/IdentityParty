@@ -38,7 +38,8 @@ internal sealed class AuthorizationEndpoint : IEndpoint
     {
         builder.MapGet("authorization",
             async (AuthorizationRequest req, AuthorizationEndpoint end) =>
-                await end.HandleAsync(req));
+                await end.HandleAsync(req))
+            .AllowAnonymous();
     }
 
     //TODO: validate returnUrl

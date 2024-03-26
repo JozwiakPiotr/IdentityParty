@@ -2,6 +2,7 @@
 
 namespace IdentityParty.Core;
 
+//TODO: implement real authorization code generator
 public class DummyAuthCodeGenerator : IAuthorizationCodeIssuer
 {
     public string Generate(Grant grant)

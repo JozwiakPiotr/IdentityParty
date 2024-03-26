@@ -59,7 +59,7 @@ public class AuthorizationEndpointTests
             .ReturnsAsync(true);
         _clientManagerMock.Setup(x => x.IsClientGrantedAsync(It.IsAny<Grant>()))
             .ReturnsAsync(true);
-        _handlerMock.Setup(x => x.HandleAsync(It.IsAny<Core.DTO.AuthorizationRequest>()))
+        _handlerMock.Setup(x => x.HandleAsync(It.IsAny<IdentityParty.Core.DTO.AuthorizationRequest>()))
             .ReturnsAsync(response);
         var sut = _fixture.Create<AuthorizationEndpoint>();
 
