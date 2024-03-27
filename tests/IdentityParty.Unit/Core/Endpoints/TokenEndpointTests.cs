@@ -2,13 +2,12 @@
 using IdentityParty.Core.Abstractions.Handlers;
 using IdentityParty.Core.DTO;
 using IdentityParty.Core.Endpoints.V1.Token;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Moq;
 using SuccessfulTokenResponse = IdentityParty.Core.DTO.SuccessfulTokenResponse;
 using TokenRequest = IdentityParty.Core.Endpoints.V1.Token.Contract.TokenRequest;
 
-namespace IdentityParty.Unit;
+namespace IdentityParty.Unit.Core.Endpoints;
 
 public class TokenEndpointTests
 {
@@ -30,15 +29,15 @@ public class TokenEndpointTests
         _grantTypeHandlerMock.SetupGet(x => x.GrantType)
             .Returns(request.grant_type);
         _grantTypeHandlerMock.Setup(x => x.HandleAsync(
-            It.IsAny<Core.DTO.TokenRequest>())
+            It.IsAny<IdentityParty.Core.DTO.TokenRequest>())
         ).ReturnsAsync(tokenResponseDto);
         //TODO: use AutoFixture to create sut object
         var sut = new TokenEndpoint(new List<IGrantTypeHandler> { _grantTypeHandlerMock.Object });
 
         var actual = await sut.HandleAsync(request);
 
-        Assert.IsType<Ok<Core.Endpoints.V1.Token.Contract.SuccessfulTokenResponse>>(actual);
-        var successfulResponse = (Ok<Core.Endpoints.V1.Token.Contract.SuccessfulTokenResponse>)actual;
+        Assert.IsType<Ok<IdentityParty.Core.Endpoints.V1.Token.Contract.SuccessfulTokenResponse>>(actual);
+        var successfulResponse = (Ok<IdentityParty.Core.Endpoints.V1.Token.Contract.SuccessfulTokenResponse>)actual;
         Assert.NotNull(successfulResponse.Value);
         Assert.NotNull(successfulResponse.Value.access_token);
         Assert.NotNull(successfulResponse.Value.token_type);
@@ -56,15 +55,15 @@ public class TokenEndpointTests
         _grantTypeHandlerMock.SetupGet(x => x.GrantType)
             .Returns(request.grant_type);
         _grantTypeHandlerMock.Setup(x => x.HandleAsync(
-            It.IsAny<Core.DTO.TokenRequest>())
+            It.IsAny<IdentityParty.Core.DTO.TokenRequest>())
         ).ReturnsAsync(tokenResponseDto);
         //TODO: use AutoFixture to create sut object
         var sut = new TokenEndpoint(new List<IGrantTypeHandler> { _grantTypeHandlerMock.Object });
 
         var actual = await sut.HandleAsync(request);
 
-        Assert.IsType<BadRequest<Core.ErrorTokenResponse>>(actual);
-        var errorResponse = (BadRequest<Core.ErrorTokenResponse>)actual;
+        Assert.IsType<BadRequest<IdentityParty.Core.ErrorTokenResponse>>(actual);
+        var errorResponse = (BadRequest<IdentityParty.Core.ErrorTokenResponse>)actual;
         Assert.Equal(errorCode, errorResponse.Value?.error);
     }
 
@@ -78,8 +77,8 @@ public class TokenEndpointTests
 
         var actual = await sut.HandleAsync(request);
 
-        Assert.IsType<BadRequest<Core.ErrorTokenResponse>>(actual);
-        var errorResponse = (BadRequest<Core.ErrorTokenResponse>)actual;
+        Assert.IsType<BadRequest<IdentityParty.Core.ErrorTokenResponse>>(actual);
+        var errorResponse = (BadRequest<IdentityParty.Core.ErrorTokenResponse>)actual;
         Assert.Equal(expectedErrorCode, errorResponse.Value?.error);
     }
     
@@ -89,10 +88,10 @@ public class TokenEndpointTests
         var request = _fixture.Create<TokenRequest>();
         var grantTypeHandlerMock = new Mock<IGrantTypeHandler>();
         grantTypeHandlerMock.SetupGet(x => x.GrantType).Returns(request.grant_type);
-        Core.DTO.TokenResponse errorResponse = _fixture.Build<Core.DTO.ErrorTokenResponse>()
+        TokenResponse errorResponse = _fixture.Build<ErrorTokenResponse>()
             .With(x => x.Error, "invalid_client")
             .Create();
-        grantTypeHandlerMock.Setup(x => x.HandleAsync(It.IsAny<Core.DTO.TokenRequest>()))
+        grantTypeHandlerMock.Setup(x => x.HandleAsync(It.IsAny<IdentityParty.Core.DTO.TokenRequest>()))
             .ReturnsAsync(errorResponse);
         //TODO: use AutoFixture to create sut object
         var sut = new TokenEndpoint(new List<IGrantTypeHandler>{
