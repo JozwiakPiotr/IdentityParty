@@ -20,17 +20,7 @@ internal class ClientManager : IClientManager
         throw new NotImplementedException();
     }
 
-    public Task<string> GetAuthCodeAsync(Grant grant)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<bool> IsClientGrantedAsync(Grant grant)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> ValidateAuthorizationCodeAsync(string passedCode, Guid clientId)
     {
         throw new NotImplementedException();
     }

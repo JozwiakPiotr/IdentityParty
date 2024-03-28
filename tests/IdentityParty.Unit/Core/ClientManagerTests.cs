@@ -25,37 +25,6 @@ public class ClientManagerTests
         Assert.Equal(expected, actual);
     }
 
-    [Fact]
-    public async Task GetAuthCodeAsync_Always_ShouldReturnAuthorizationCode()
-    {
-        var authCodeIssuerMock = _fixture.Freeze<Mock<IAuthorizationCodeIssuer>>();
-        authCodeIssuerMock.Setup(x => x.Generate(It.IsAny<Grant>()))
-            .Returns(_fixture.Create<string>());
-        var grant = _fixture.Create<Grant>();
-        var sut = _fixture.Create<ClientManager>();
-
-        var actual = await sut.GetAuthCodeAsync(grant);
-
-        Assert.False(string.IsNullOrEmpty(actual));
-    }
-
-    [Fact]
-    public async Task GetAuthCodeAsync_Always_ShouldSaveAuthorizationCode()
-    {
-        var expectedAuthCode = _fixture.Create<string>();
-        var authCodeIssuerMock = _fixture.Freeze<Mock<IAuthorizationCodeIssuer>>();
-        authCodeIssuerMock.Setup(x => x.Generate(It.IsAny<Grant>()))
-            .Returns(expectedAuthCode);
-        var grantStoreMock = _fixture.Freeze<Mock<IGrantStore>>();
-        var grant = _fixture.Create<Grant>();
-        var sut = _fixture.Create<ClientManager>();
-
-        _ = sut.GetAuthCodeAsync(grant);
-        grantStoreMock.Verify(
-            x => x.Update(It.Is<Grant>(g => g.AuthorizationCode != null)),
-            Times.Once);
-    }
-
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
@@ -70,38 +39,5 @@ public class ClientManagerTests
         var actual = await sut.IsClientGrantedAsync(grant);
 
         Assert.Equal(expected, actual);
-    }
-
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public async Task ValidateCodeAsync_Always_ShouldCheckIfGrantWithProvidedAuthCodeExists(bool expected)
-    {
-        var grantStoreMock = _fixture.Freeze<Mock<IGrantStore>>();
-        grantStoreMock.Setup(x => x.AnyWithClientIdAndAuthCode(It.IsAny<Guid>(), It.IsAny<string>()))
-            .ReturnsAsync(expected);
-        var grant = _fixture.Create<Grant>();
-        var sut = _fixture.Create<ClientManager>();
-
-        var actual = await sut.IsClientGrantedAsync(grant);
-
-        Assert.Equal(expected, actual);
-    }
-
-    public async Task ValidateCodeAsync_WhenSuccessful_ShouldSetAuthCodeAsUsed()
-    {
-        var grantStoreMock = _fixture.Freeze<Mock<IGrantStore>>();
-    }
-
-    [Fact]
-    public async Task ValidateCodeAsync_WhenCodeWasAlreadyUsed_ShouldReturnFalseAndRevokeAllTokens()
-    {
-        
-    }
-
-    [Fact]
-    public async Task ValidateCodeAsync_WhenCodeExpired_ShouldReturnFalse()
-    {
-        
     }
 }

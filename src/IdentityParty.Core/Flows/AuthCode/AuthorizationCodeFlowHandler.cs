@@ -14,7 +14,7 @@ internal sealed class AuthorizationCodeFlowHandler :
     }
     public async Task<AuthorizationResponse> HandleAsync(AuthorizationRequest request)
     {
-        var code = await _clientManager.GetAuthCodeAsync(request.Grant);
+        var code = await _clientManager.AssignAuthCodeAsync(request.Grant);
         return new SuccessfulAuthorizationResponse(
             request.RedirectUrl,
             code,

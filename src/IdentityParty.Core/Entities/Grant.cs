@@ -16,7 +16,7 @@ public class Grant
     public List<Scope> Scopes { get; set; }
     public string? AuthorizationCode { get; private set; }
     public DateTime? AuthCodeExp { get; private set; }
-    public bool Used { get; set; }
+    public bool AuthCodeUsed { get; set; }
 
     public void SetAuthCode(string authCode)
     {
