@@ -5,7 +5,7 @@ using IdentityParty.Core.Abstractions;
 using IdentityParty.Core.Entities;
 using Moq;
 
-namespace IdentityParty.Unit;
+namespace IdentityParty.Unit.Core;
 
 public class AuthCodeManagerTests
 {

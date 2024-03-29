@@ -1,33 +1,27 @@
 ﻿using AutoFixture;
-using IdentityParty.Core.Abstractions;
+using AutoFixture.Xunit2;
+using IdentityParty.Core;
 using IdentityParty.Core.DTO;
 using IdentityParty.Core.Flows.AuthCode;
 using Moq;
 
-namespace IdentityParty.Unit;
+namespace IdentityParty.Unit.Core.Flows;
 
 public class AuthorizationCodeFlowHandlerTests
 {
-    private AuthorizationCodeFlowHandler _sut;
-    private Fixture _fixture;
-    private Mock<IClientManager> _clientManager;
+    private readonly Fixture _fixture = FixtureFactory.Create();
 
-
-    public AuthorizationCodeFlowHandlerTests()
-    {
-        _fixture = FixtureFactory.Create();
-        _clientManager = _fixture.Freeze<Mock<IClientManager>>();
-    }
-
-    [Fact]
-    public async Task HandleAsyncAuthorizationRequest_ShouldReturnSuccessfulResponse()
+    [Theory]
+    [AutoMoqData]
+    internal async Task HandleAsyncAuthorizationRequest_ShouldReturnSuccessfulResponse(
+        [Frozen] Mock<IAuthCodeManager> authCodeManagerMock,
+        AuthorizationCodeFlowHandler sut)
     {
         var request = _fixture.Create<AuthorizationRequest>();
-        _clientManager.Setup(x => x.AssignAuthCodeAsync(request.Grant))
+        authCodeManagerMock.Setup(x => x.AssignAuthCodeAsync(request.Grant))
             .ReturnsAsync(_fixture.Create<string>());
-        _sut = _fixture.Create<AuthorizationCodeFlowHandler>();
 
-        var actual = await _sut.HandleAsync(request);
+        var actual = await sut.HandleAsync(request);
 
         Assert.NotNull(actual.Success);
         Assert.NotNull(actual.Success.Code);
