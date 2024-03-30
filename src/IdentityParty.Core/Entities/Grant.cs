@@ -9,7 +9,6 @@ public class Grant
         Scopes = scopes;
     }
     
-    //TODO: maybe move to config
     private const int AuthCodeExpTimeInMinutes = 10;
     public Guid EndUserId { get; set; }
     public Guid ClientId { get; set; }
