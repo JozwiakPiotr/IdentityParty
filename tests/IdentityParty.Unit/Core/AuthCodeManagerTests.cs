@@ -38,7 +38,7 @@ public class AuthCodeManagerTests
 
         _ = await sut.AssignAuthCodeAsync(grant);
         grantStoreMock.Verify(
-            x => x.Update(It.Is<Grant>(g => g.AuthorizationCode != null)),
+            x => x.UpdateAsync(It.Is<Grant>(g => g.AuthorizationCode != null)),
             Times.Once);
     }
 
@@ -50,7 +50,7 @@ public class AuthCodeManagerTests
         AuthCodeManager sut)
     {
         var expectedGrant = CreateValidGrant(expectedAuthCode: passedCode);
-        grantStoreMock.Setup(x => x.Get(It.IsAny<Guid>(), It.IsAny<string>()))
+        grantStoreMock.Setup(x => x.GetAsync(It.IsAny<Guid>(), It.IsAny<string>()))
             .ReturnsAsync(expectedGrant);
 
         var actual = await sut.ValidateAuthorizationCodeAsync(passedCode, clientId);
@@ -72,7 +72,7 @@ public class AuthCodeManagerTests
         var grantWithAlreadyUsedAuthCode = _fixture.Build<Grant>()
             .FromFactory(() => CreateValidGrant(passedAuthCode))
             .With(g => g.AuthCodeUsed, true).Create();
-        grantStoreMock.Setup(x => x.Get(clientId, passedAuthCode))
+        grantStoreMock.Setup(x => x.GetAsync(clientId, passedAuthCode))
             .ReturnsAsync(grantWithAlreadyUsedAuthCode);
 
         var result = await sut.ValidateAuthorizationCodeAsync(passedAuthCode, clientId);
@@ -93,7 +93,7 @@ public class AuthCodeManagerTests
         var grantWithExpiredAuthorizationCode = _fixture.Build<Grant>()
             .FromFactory(() => CreateValidGrant(passedAuthCode))
             .With(g => g.AuthCodeUsed, true).Create();
-        grantStoreMock.Setup(x => x.Get(clientId, passedAuthCode))
+        grantStoreMock.Setup(x => x.GetAsync(clientId, passedAuthCode))
             .ReturnsAsync(grantWithExpiredAuthorizationCode);
 
         var result = await sut.ValidateAuthorizationCodeAsync(passedAuthCode, clientId);

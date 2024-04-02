@@ -31,7 +31,7 @@ public class ClientManagerTests
     public async Task IsClientGrantedAsync_Always_ShouldReturnWetherClientIsGranted(bool expected)
     {
         var grantStoreMock = _fixture.Freeze<Mock<IGrantStore>>();
-        grantStoreMock.Setup(x => x.Any(It.IsAny<Grant>()))
+        grantStoreMock.Setup(x => x.AnyAsync(It.IsAny<Grant>()))
             .ReturnsAsync(expected);
         var grant = _fixture.Create<Grant>();
         var sut = _fixture.Create<ClientManager>();
