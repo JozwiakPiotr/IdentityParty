@@ -22,14 +22,13 @@ To learn OAuth and OpenIDConnect protocols.
 * Frontend
     - [ ] end user management
     - [ ] client management
-* Library API
-    - [ ] Install IdentityParty to ASP.Net app
 * OpenID implementation
     - [ ] OpenID Connect Core
     - [ ] OpenID Connect Discovery
     - [ ] OpenID Connect Dynamic Client Registration
 ### Nice to have
 * Integration with ASP.Net Core Identity
+* Install IdentityParty to ASP.Net app using fluent api
 
 TODO:
 - [ ] [Implement OAuth authorization code: storing, max lifetime, bouding, revoking tokens](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.2)
