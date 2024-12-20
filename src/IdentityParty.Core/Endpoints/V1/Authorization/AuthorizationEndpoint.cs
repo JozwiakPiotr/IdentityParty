@@ -135,7 +135,7 @@ internal sealed class AuthorizationEndpoint : IEndpoint
         return new DTO.AuthorizationRequest(
             request.ResponseType,
             request.RedirectUri,
-            request.state,
+            request.State,
             new Grant(
                 Guid.Parse(request.ClientId),
                 GetUserId(_httpContext),

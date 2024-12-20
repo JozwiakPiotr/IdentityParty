@@ -3,7 +3,8 @@
 namespace IdentityParty.Core.Endpoints.V1.Authorization.Contract;
 
 internal record AuthorizationRequest(
-    [property: JsonPropertyName("scope")] string Scope,
+    [property: JsonPropertyName("scope")]
+    string Scope,
     [property: JsonPropertyName("response_type")]
     string ResponseType,
     [property: JsonPropertyName("client_id")]
@@ -11,7 +12,8 @@ internal record AuthorizationRequest(
     [property: JsonPropertyName("redirect_uri")]
     string RedirectUri,
     [property: JsonPropertyName("state")]
-    string state);
+    string State
+    );
 /*
  * TODO: add optional parameteres
  * state
