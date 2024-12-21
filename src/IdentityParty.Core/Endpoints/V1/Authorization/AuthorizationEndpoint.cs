@@ -55,6 +55,7 @@ internal sealed class AuthorizationEndpoint : IEndpoint
     */
     public async Task<IResult> HandleAsync(AuthorizationRequest request)
     {
+        //TODO: maybe move those ifs to IResponseTypeHandler
         if (await ClientDoesntExist(request.ClientId))
             return Results.Unauthorized();
 

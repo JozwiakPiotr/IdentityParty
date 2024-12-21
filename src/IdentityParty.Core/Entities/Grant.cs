@@ -17,7 +17,7 @@ public class Grant
     public DateTime? AuthCodeExp { get; private set; }
     public bool AuthCodeUsed { get; set; }
 
-    public void SetAuthCode(string authCode)
+    public void AssignAuthCode(string authCode)
     {
         AuthorizationCode = authCode;
         //TODO: DateTime.Now vs DateTime.UtcNow

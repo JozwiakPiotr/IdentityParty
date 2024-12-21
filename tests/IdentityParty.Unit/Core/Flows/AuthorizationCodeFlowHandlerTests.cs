@@ -11,8 +11,7 @@ public class AuthorizationCodeFlowHandlerTests
 {
     private readonly Fixture _fixture = FixtureFactory.Create();
 
-    [Theory]
-    [AutoMoqData]
+    [Theory, AutoData]
     internal async Task HandleAsyncAuthorizationRequest_ShouldReturnSuccessfulResponse(
         [Frozen] Mock<IAuthCodeManager> authCodeManagerMock,
         AuthorizationCodeFlowHandler sut)

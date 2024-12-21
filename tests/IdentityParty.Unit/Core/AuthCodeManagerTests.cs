@@ -1,5 +1,5 @@
 ﻿using AutoFixture;
-using AutoFixture.Xunit2;
+using AutoFixture.Xunit;
 using IdentityParty.Core;
 using IdentityParty.Core.Abstractions;
 using IdentityParty.Core.Entities;
@@ -15,7 +15,7 @@ public class AuthCodeManagerTests
     public async Task GetAuthCodeAsync_Always_ShouldReturnAuthorizationCode()
     {
         var authCodeIssuerMock = _fixture.Freeze<Mock<IAuthorizationCodeIssuer>>();
-        authCodeIssuerMock.Setup(x => x.Generate(It.IsAny<Grant>()))
+        authCodeIssuerMock.Setup(x => x.Issue())
             .Returns(_fixture.Create<string>());
         var grant = _fixture.Create<Grant>();
         var sut = _fixture.Create<AuthCodeManager>();
@@ -30,7 +30,7 @@ public class AuthCodeManagerTests
     {
         var expectedAuthCode = _fixture.Create<string>();
         var authCodeIssuerMock = _fixture.Freeze<Mock<IAuthorizationCodeIssuer>>();
-        authCodeIssuerMock.Setup(x => x.Generate(It.IsAny<Grant>()))
+        authCodeIssuerMock.Setup(x => x.Issue())
             .Returns(expectedAuthCode);
         var grantStoreMock = _fixture.Freeze<Mock<IGrantStore>>();
         var grant = _fixture.Create<Grant>();
@@ -42,9 +42,9 @@ public class AuthCodeManagerTests
             Times.Once);
     }
 
-    [Theory, AutoMoqData]
+    [Theory, AutoData]
     public async Task ValidateCodeAsync_PassedCodeIsValid_ReturnsTrueAndSetAuthCodeAsUsed(
-        [Frozen] Mock<IGrantStore> grantStoreMock,
+        [AutoFixture.Xunit2.Frozen] Mock<IGrantStore> grantStoreMock,
         Guid clientId,
         string passedCode,
         AuthCodeManager sut)
@@ -62,9 +62,9 @@ public class AuthCodeManagerTests
     [Theory]
     [AutoMoqData]
     public async Task ValidateCodeAsync_AuthCodeWasAlreadyUsed_ReturnsFalseAndRevokeAllTokens(
-        [Frozen] Mock<IAccessTokenManager> accessTokenManagerMock,
-        [Frozen] Mock<IIdTokenManager> idTokenManagerMock,
-        [Frozen] Mock<IGrantStore> grantStoreMock,
+        [AutoFixture.Xunit2.Frozen] Mock<IAccessTokenManager> accessTokenManagerMock,
+        [AutoFixture.Xunit2.Frozen] Mock<IIdTokenManager> idTokenManagerMock,
+        [AutoFixture.Xunit2.Frozen] Mock<IGrantStore> grantStoreMock,
         string passedAuthCode,
         Guid clientId,
         AuthCodeManager sut)
@@ -85,7 +85,7 @@ public class AuthCodeManagerTests
     [Theory]
     [AutoMoqData]
     public async Task ValidateCodeAsync_AuthCodeExpired_ReturnsFalse(
-        [Frozen] Mock<IGrantStore> grantStoreMock,
+        [AutoFixture.Xunit2.Frozen] Mock<IGrantStore> grantStoreMock,
         string passedAuthCode,
         Guid clientId,
         AuthCodeManager sut)
@@ -107,7 +107,7 @@ public class AuthCodeManagerTests
         var grant = _fixture.Build<Grant>()
             .With(x => x.AuthCodeUsed, false)
             .Create();
-        grant.SetAuthCode(expectedAuthCode);
+        grant.AssignAuthCode(expectedAuthCode);
         return grant;
     }
 }
