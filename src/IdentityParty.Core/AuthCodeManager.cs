@@ -30,7 +30,7 @@ public class AuthCodeManager : IAuthCodeManager
         return code;
     }
 
-    public Task<bool> ValidateAuthorizationCodeAsync(string passedCode, Guid clientId)
+    public async Task<bool> ValidateAuthorizationCodeAsync(string passedCode, Guid clientId)
     {
         var grant = await _grantStore.GetAsync(clientId, passedCode);
         if(grant is null)

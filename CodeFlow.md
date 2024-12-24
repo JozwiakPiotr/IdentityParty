@@ -3,19 +3,17 @@ zenuml
     title Authorization Endpoint
     C as Client  B as Browser AS as "Authorization Server"
     C->AS: with scope:openid
-    if(endUser_is_authenticated){
-        if(client_is_granted) {
-            AS->C: authorization code
-        }
-        else {
-            AS->B: redirect to client authorization page
-            B->AS: return to authorization endpoint
-        }
-    }
-    else {
+    if("end user is not authenticated"){
         AS->B: redirect to login
         B->AS: return to authorization endpoint
-    } 
+    }
+    if(client_is_granted) {
+        AS->C: authorization code
+    }
+    else {
+        AS->B: redirect to client authorization page
+        B->AS: return to authorization endpoint
+    }
 ```
 
 ```mermaid

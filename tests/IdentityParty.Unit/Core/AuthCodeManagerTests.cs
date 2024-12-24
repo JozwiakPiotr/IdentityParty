@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using AutoFixture.Xunit;
+using AutoFixture.Xunit2;
 using IdentityParty.Core;
 using IdentityParty.Core.Abstractions;
 using IdentityParty.Core.Entities;
@@ -59,8 +60,7 @@ public class AuthCodeManagerTests
         Assert.True(expectedGrant.AuthCodeUsed);
     }
 
-    [Theory]
-    [AutoMoqData]
+    [Theory, AutoData]
     public async Task ValidateCodeAsync_AuthCodeWasAlreadyUsed_ReturnsFalseAndRevokeAllTokens(
         [AutoFixture.Xunit2.Frozen] Mock<IAccessTokenManager> accessTokenManagerMock,
         [AutoFixture.Xunit2.Frozen] Mock<IIdTokenManager> idTokenManagerMock,
@@ -82,8 +82,7 @@ public class AuthCodeManagerTests
         accessTokenManagerMock.Verify(x => x.CancelCurrent(), Times.Once);
     }
 
-    [Theory]
-    [AutoMoqData]
+    [Theory, AutoData]
     public async Task ValidateCodeAsync_AuthCodeExpired_ReturnsFalse(
         [AutoFixture.Xunit2.Frozen] Mock<IGrantStore> grantStoreMock,
         string passedAuthCode,
