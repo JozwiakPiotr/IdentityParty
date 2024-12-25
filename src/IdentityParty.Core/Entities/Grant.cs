@@ -16,6 +16,7 @@ public class Grant
     public string? AuthorizationCode { get; private set; }
     public DateTime? AuthCodeExp { get; private set; }
     public bool AuthCodeUsed { get; set; }
+    public bool WasUsed { get; set; }
 
     public void AssignAuthCode(string authCode)
     {

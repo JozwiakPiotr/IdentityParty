@@ -1,5 +1,4 @@
 ﻿using AutoFixture;
-using AutoFixture.Xunit;
 using AutoFixture.Xunit2;
 using IdentityParty.Core;
 using IdentityParty.Core.Abstractions;
