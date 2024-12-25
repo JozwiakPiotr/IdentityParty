@@ -1,0 +1,25 @@
+@startuml
+class Grant {
+  +Scopes{readonly}
+  -AuthCode
+  -ResourceOnwerId
+  -ClientId
+  void AssignAuthCode()
+  boolean IsAuthCodeValid()
+}
+
+class AuthCodeFlowHandler {
+
+}
+
+interface IAuthorizationFlowHandler {
+
+}
+
+interface IGrantStore {
+  boolean GrantExists()
+
+}
+
+IAuthorizationFlowHandler <|-- AuthCodeFlowHandler
+@enduml
